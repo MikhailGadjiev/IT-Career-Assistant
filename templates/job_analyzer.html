@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}Анализ вакансий | {{ super() }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+            <div class="card shadow-lg border-0">
+                <!-- Заголовок карточки -->
+                <div class="card-header bg-primary text-white py-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 class="h4 mb-0">
+                            <i class="bi bi-search me-2"></i>Анализ IT-вакансий
+                        </h2>
+                        <span class="badge bg-white text-primary">Шаг 1 из 1</span>
+                    </div>
+                </div>
+                
+                <!-- Тело карточки -->
+                <div class="card-body p-4">
+                    <form action="/job_analyzer" method="POST">
+                        <!-- Поле для навыков -->
+                        <div class="mb-4">
+                            <label for="skills" class="form-label fw-bold">
+                                <i class="bi bi-pencil-square text-primary me-2"></i>
+                                Ваши навыки
+                            </label>
+                            <textarea class="form-control border-2 py-3" 
+                                      id="skills" 
+                                      name="skills" 
+                                      rows="6"
+                                      style="border-color: #dee2e6;"
+                                      placeholder="Пример заполнения: Python, SQL, Pandas, Machine Learning, Data Analysis, Tableau, Excel"
+                                      required></textarea>
+                            <div class="form-text mt-2">
+                                <i class="bi bi-info-circle text-muted me-1"></i>
+                                Перечислите через запятую все ваши технические навыки и технологии
+                            </div>
+                        </div>
+                        
+                        <!-- Кнопки действий -->
+                        <div class="d-flex flex-column flex-md-row gap-3 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg flex-grow-1 py-3">
+                                <i class="bi bi-lightning-charge-fill me-2"></i>
+                                Проанализировать вакансии
+                            </button>
+                            <a href="/" class="btn btn-outline-secondary btn-lg py-3">
+                                <i class="bi bi-arrow-left me-2"></i>
+                                На главную
+                            </a>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Подсказки в футере карточки -->
+                <div class="card-footer bg-light border-0">
+                    <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <h5 class="h6 text-primary">
+                                <i class="bi bi-lightbulb me-2"></i>Советы по заполнению
+                            </h5>
+                            <ul class="small text-muted">
+                                <li>Указывайте конкретные технологии (Python, а не "Программирование")</li>
+                                <li>Добавляйте специализированные навыки (ML, Data Visualization)</li>
+                                <li>Не забывайте про инструменты (Git, Docker, Tableau)</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="h6 text-primary">
+                                <i class="bi bi-star me-2"></i>Как работает анализ
+                            </h5>
+                            <ul class="small text-muted">
+                                <li>Сравниваем ваши навыки с 5000+ IT-вакансий</li>
+                                <li>Используем алгоритмы машинного обучения</li>
+                                <li>Рекомендуем статьи для изучения недостающих навыков</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+// Динамический подсчет символов
+document.getElementById('skills').addEventListener('input', function() {
+    const charCount = this.value.length;
+    const counter = document.getElementById('charCounter');
+    if (counter) {
+        counter.textContent = `${charCount} символов`;
+        if (charCount > 500) {
+            counter.classList.add('text-success');
+            counter.classList.remove('text-muted');
+        } else {
+            counter.classList.add('text-muted');
+            counter.classList.remove('text-success');
+        }
+    }
+});
+</script>
+{% endblock %}
